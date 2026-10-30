@@ -32,7 +32,7 @@ Packages/RazerKit/            协议库（本地 Swift Package）
 xcodebuild -project DeathAdderControl.xcodeproj -scheme DeathAdderControl -derivedDataPath build/DerivedData -allowProvisioningUpdates build
 ```
 
-修改 `project.yml` 后，运行 `xcodegen` 重新生成工程。签名使用 Personal Team（`AJ9MHAPR4U`），Bundle ID 是 `im.szm.DeathAdderControl`。
+修改 `project.yml` 后，运行 `xcodegen` 重新生成工程。签名使用 Personal Team（`AJ9MHAPR4U`），Bundle ID 是 `moe.flinty.DeathAdderControl`。
 
 首次运行时需要在「系统设置 → 隐私与安全性 → 输入监控」里允许 DeathAdder Control，然后重新打开它。因为签名身份是固定的，以后重新构建不需要再授权。
 
