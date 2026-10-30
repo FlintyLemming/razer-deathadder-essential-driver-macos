@@ -1,5 +1,7 @@
 # DeathAdder Control
 
+**中文** | [English](README.en.md)
+
 Razer DeathAdder Essential（USB `1532:0098`）的 macOS 配置工具。单窗口 SwiftUI 程序，不需要内核扩展或 DriverKit：所有配置都通过 HID 特性报告完成。
 
 项目地址：<https://github.com/FlintyLemming/razer-deathadder-essential-driver-macos>，觉得好用欢迎点个 ⭐ Star。
@@ -12,12 +14,25 @@ Razer DeathAdder Essential（USB `1532:0098`）的 macOS 配置工具。单窗�
 - 按键映射（写入鼠标板载存储）：7 个按钮都可以设为鼠标按键、键盘按键（可带修饰键，支持录制），或者禁用；可以一键恢复出厂映射
 - 插拔自动重连；高级区里有调试命令，可以手动发送原始命令
 
+## 安装
+
+在 [Releases](https://github.com/FlintyLemming/razer-deathadder-essential-driver-macos/releases) 下载最新的 `.dmg`，打开后把 DeathAdder Control 拖进「应用程序」文件夹。支持 Apple 芯片和 Intel，需要 macOS 14 及以上。
+
+App 没有用开发者证书签名和公证，直接打开会提示「已损坏」或「无法验证开发者」。在终端里移除隔离属性后再打开：
+
+```bash
+xattr -d com.apple.quarantine "/Applications/DeathAdder Control.app"
+```
+
+首次运行时需要在「系统设置 → 隐私与安全性 → 输入监控」里允许 DeathAdder Control，然后重新打开它。Release 版是 ad-hoc 签名，每次更新到新版本后可能要重新授权一次（先在列表里删掉旧条目）。
+
 ## 目录
 
 ```
 DeathAdderControl.xcodeproj   由 project.yml 生成（XcodeGen）
 project.yml                   工程配置：签名团队、Bundle ID 等
 DeathAdderControl/            App：界面、状态模型、自检
+scripts/build-dmg.sh          打包 Release 版 .dmg（CI 也用它）
 Packages/RazerKit/            协议库（本地 Swift Package）
   Sources/RazerKit/           帧格式 / 事务层 / IOKit 传输 / 高层 API / 键码表
   Sources/rzctl/              命令行调试工具
@@ -31,6 +46,14 @@ Packages/RazerKit/            协议库（本地 Swift Package）
 ```bash
 xcodebuild -project DeathAdderControl.xcodeproj -scheme DeathAdderControl -derivedDataPath build/DerivedData -allowProvisioningUpdates build
 ```
+
+打包 Release 版 .dmg（universal，ad-hoc 签名，产物在 `build/dist/`）：
+
+```bash
+scripts/build-dmg.sh 1.0
+```
+
+推送 `v*` 标签（例如 `git tag v1.0 && git push origin v1.0`）会触发 GitHub Actions 构建 .dmg 并自动发布 Release。
 
 修改 `project.yml` 后，运行 `xcodegen` 重新生成工程。签名使用 Personal Team（`AJ9MHAPR4U`），Bundle ID 是 `moe.flinty.DeathAdderControl`。
 

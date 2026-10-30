@@ -1,0 +1,46 @@
+# 推送 v* 标签时构建 .dmg 并发布 Release；手动运行时只上传构建产物
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=0.0.0-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build dmg
+        run: scripts/build-dmg.sh "${{ steps.version.outputs.version }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DeathAdderControl-${{ steps.version.outputs.version }}
+          path: build/dist/*.dmg
+
+      - name: Publish release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/dist/*.dmg \
+            --title "DeathAdder Control $GITHUB_REF_NAME" \
+            --generate-notes
