@@ -16,11 +16,13 @@ public enum HIDKeyboard {
 
     public static let groups: [Group] = {
         func k(_ usage: UInt8, _ name: String) -> Key { Key(usage: usage, name: name) }
-        let letters = (0..<26).map { k(UInt8(0x04 + $0), String(UnicodeScalar(UInt8(65 + $0)))) }
-        let digits = (1...9).map { k(UInt8(0x1D + $0), "\($0)") } + [k(0x27, "0")]
-        let fkeys = (1...12).map { k(UInt8(0x39 + $0), "F\($0)") }
-            + (13...24).map { k(UInt8(0x68 + $0 - 13), "F\($0)") }
-        let numpad = (1...9).map { k(UInt8(0x58 + $0), "小键盘 \($0)") } + [
+        // 显式标注类型：Xcode 26 的类型检查器推断这些表达式会超时
+        let letters: [Key] = (0..<26).map { (i: Int) in k(UInt8(0x04 + i), String(UnicodeScalar(UInt8(65 + i)))) }
+        let digits: [Key] = (1...9).map { (n: Int) in k(UInt8(0x1D + n), "\(n)") } + [k(0x27, "0")]
+        let f1to12: [Key] = (1...12).map { (n: Int) in k(UInt8(0x39 + n), "F\(n)") }
+        let f13to24: [Key] = (13...24).map { (n: Int) in k(UInt8(0x5B + n), "F\(n)") } // F13 = 0x68
+        let fkeys = f1to12 + f13to24
+        let numpad: [Key] = (1...9).map { (n: Int) in k(UInt8(0x58 + n), "小键盘 \(n)") } + [
             k(0x62, "小键盘 0"), k(0x63, "小键盘 ."), k(0x54, "小键盘 /"), k(0x55, "小键盘 *"),
             k(0x56, "小键盘 -"), k(0x57, "小键盘 +"), k(0x58, "小键盘 Enter"), k(0x67, "小键盘 ="),
             k(0x53, "Num Lock / Clear"),
