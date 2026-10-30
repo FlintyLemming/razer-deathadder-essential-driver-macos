@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		186D06F18FAAEAFDB19E8343 /* DeathAdderControlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743CF8683ED21947F0782A01 /* DeathAdderControlApp.swift */; };
+		2ABC5FA97AF86B78792E5BB5 /* SelfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC71F0B9AA43E7737DCC33 /* SelfTest.swift */; };
+		2E51A7E60D267ECD9ADF3C64 /* MouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027BAB9AFD057704ECD31BEF /* MouseModel.swift */; };
+		34D917926C3B92DA68238357 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037DBF1071CEE086019E287A /* ContentView.swift */; };
+		3989CBE1B7587167A97C02F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815BFCAB271C077187AA261A /* Assets.xcassets */; };
+		45820EEB45071EF18230A33D /* RazerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 04C2B385A07026C131C24FA8 /* RazerKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		027BAB9AFD057704ECD31BEF /* MouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseModel.swift; sourceTree = "<group>"; };
+		037DBF1071CEE086019E287A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		130A17D6933B658C803F8FA1 /* DeathAdderControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeathAdderControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B7D5C9227F58350D41C6A6B /* RazerKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RazerKit; path = Packages/RazerKit; sourceTree = SOURCE_ROOT; };
+		4ECC71F0B9AA43E7737DCC33 /* SelfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfTest.swift; sourceTree = "<group>"; };
+		743CF8683ED21947F0782A01 /* DeathAdderControlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathAdderControlApp.swift; sourceTree = "<group>"; };
+		815BFCAB271C077187AA261A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A8B50AE6F04883C4C8EFA290 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45820EEB45071EF18230A33D /* RazerKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		181B0A2FC43D19AAE6350D18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				130A17D6933B658C803F8FA1 /* DeathAdderControl.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E604E57197F5178FB654445 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				4B7D5C9227F58350D41C6A6B /* RazerKit */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		77A282EB58CB0068DED99FA3 /* DeathAdderControl */ = {
+			isa = PBXGroup;
+			children = (
+				815BFCAB271C077187AA261A /* Assets.xcassets */,
+				037DBF1071CEE086019E287A /* ContentView.swift */,
+				743CF8683ED21947F0782A01 /* DeathAdderControlApp.swift */,
+				027BAB9AFD057704ECD31BEF /* MouseModel.swift */,
+				4ECC71F0B9AA43E7737DCC33 /* SelfTest.swift */,
+			);
+			path = DeathAdderControl;
+			sourceTree = "<group>";
+		};
+		C8A01315683CE2E63AD4E133 = {
+			isa = PBXGroup;
+			children = (
+				77A282EB58CB0068DED99FA3 /* DeathAdderControl */,
+				5E604E57197F5178FB654445 /* Packages */,
+				181B0A2FC43D19AAE6350D18 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE8BB06EBA8175C90D11BECB /* DeathAdderControl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE18A2A2AB32BAD90EBD649D /* Build configuration list for PBXNativeTarget "DeathAdderControl" */;
+			buildPhases = (
+				9308C748B03EDCCD60D137E2 /* Sources */,
+				42CB09659692DF512BDB167E /* Resources */,
+				A8B50AE6F04883C4C8EFA290 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeathAdderControl;
+			packageProductDependencies = (
+				04C2B385A07026C131C24FA8 /* RazerKit */,
+			);
+			productName = DeathAdderControl;
+			productReference = 130A17D6933B658C803F8FA1 /* DeathAdderControl.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		00F90B3B8ADB04A4184445C5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					BE8BB06EBA8175C90D11BECB = {
+						DevelopmentTeam = AJ9MHAPR4U;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8136D41E8075A6536B6C19B5 /* Build configuration list for PBXProject "DeathAdderControl" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C8A01315683CE2E63AD4E133;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5FE8A204B7D257C3ECCCC601 /* XCLocalSwiftPackageReference "Packages/RazerKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 181B0A2FC43D19AAE6350D18 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE8BB06EBA8175C90D11BECB /* DeathAdderControl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42CB09659692DF512BDB167E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3989CBE1B7587167A97C02F3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9308C748B03EDCCD60D137E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D917926C3B92DA68238357 /* ContentView.swift in Sources */,
+				186D06F18FAAEAFDB19E8343 /* DeathAdderControlApp.swift in Sources */,
+				2E51A7E60D267ECD9ADF3C64 /* MouseModel.swift in Sources */,
+				2ABC5FA97AF86B78792E5BB5 /* SelfTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		830897030DF4AE83CA9FFFF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AJ9MHAPR4U;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DB80004741E187E9E4CB92E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AJ9MHAPR4U;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F343C78B4CC5532EF25C4CD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DeathAdder Control";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = im.szm.DeathAdderControl;
+				PRODUCT_NAME = "DeathAdder Control";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F9E4FEE9F90A5D2A83585959 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DeathAdder Control";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = im.szm.DeathAdderControl;
+				PRODUCT_NAME = "DeathAdder Control";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8136D41E8075A6536B6C19B5 /* Build configuration list for PBXProject "DeathAdderControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				830897030DF4AE83CA9FFFF5 /* Debug */,
+				DB80004741E187E9E4CB92E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE18A2A2AB32BAD90EBD649D /* Build configuration list for PBXNativeTarget "DeathAdderControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9E4FEE9F90A5D2A83585959 /* Debug */,
+				F343C78B4CC5532EF25C4CD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5FE8A204B7D257C3ECCCC601 /* XCLocalSwiftPackageReference "Packages/RazerKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RazerKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04C2B385A07026C131C24FA8 /* RazerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RazerKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 00F90B3B8ADB04A4184445C5 /* Project object */;
+}

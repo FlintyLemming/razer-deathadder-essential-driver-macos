@@ -1,0 +1,58 @@
+# XcodeGen 配置：修改后运行 `xcodegen` 重新生成 DeathAdderControl.xcodeproj
+name: DeathAdderControl
+options:
+  bundleIdPrefix: im.szm
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+packages:
+  RazerKit:
+    path: Packages/RazerKit
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: AJ9MHAPR4U
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  DeathAdderControl:
+    type: application
+    platform: macOS
+    sources:
+      - DeathAdderControl
+    dependencies:
+      - package: RazerKit
+        product: RazerKit
+    settings:
+      base:
+        PRODUCT_NAME: DeathAdder Control
+        PRODUCT_BUNDLE_IDENTIFIER: im.szm.DeathAdderControl
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: DeathAdder Control
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_IDENTITY: Apple Development
+        ENABLE_HARDENED_RUNTIME: YES
+        # 不开沙盒：要用 IOHIDManager 直接打开鼠标的 HID 集合
+        ENABLE_APP_SANDBOX: NO
+        COMBINE_HIDPI_IMAGES: YES
+
+schemes:
+  DeathAdderControl:
+    build:
+      targets:
+        DeathAdderControl: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - package: RazerKit/RazerKitTests
+    archive:
+      config: Release
