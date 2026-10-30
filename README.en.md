@@ -13,6 +13,7 @@ Repository: <https://github.com/FlintyLemming/razer-deathadder-essential-driver-
 - Polling rate: 125 / 250 / 500 / 1000 Hz
 - Button remapping (stored in the mouse's on-board memory): each of the 7 buttons can be set to a mouse button, a keyboard key (with modifiers, recordable), or disabled; factory mapping can be restored with one click
 - Automatic reconnect on replug; the Advanced section has a debug console for sending raw commands
+- Interface follows the system language: Simplified Chinese on Chinese systems (Simplified or Traditional), English everywhere else; you can override it per app under System Settings → General → Language & Region → Applications
 
 ## Installation
 

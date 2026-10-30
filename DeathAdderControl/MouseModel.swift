@@ -103,7 +103,7 @@ final class MouseModel {
         let map = await attempt { try $0.buttonAssignments() } ?? [:]
         buttons = ids.map { ButtonSlot(id: $0, action: map[$0]) }
         if let first = errors.first {
-            flash("读取设备状态失败：\(first)", isError: true)
+            flash(String(localized: "Failed to read device state: \(first)"), isError: true)
         }
     }
 
@@ -111,7 +111,7 @@ final class MouseModel {
 
     func applyDPI(_ value: Int) async {
         guard let mouse else { return }
-        await run("DPI 已设为 \(value)") {
+        await run(String(localized: "DPI set to \(value)")) {
             self.dpi = try await self.io(mouse) { m in
                 try m.setDPI(value)
                 return try m.dpi()
@@ -126,13 +126,13 @@ final class MouseModel {
                 try m.setActiveDPIStage(stage)
                 return (try m.dpiStages(), try m.dpi())
             }
-            self.flash("已切换到第 \(stage) 档（\(self.dpi) DPI）")
+            self.flash(String(localized: "Switched to stage \(stage) (\(self.dpi) DPI)"))
         }
     }
 
     func applyPollingRate(_ rate: PollingRate) async {
         guard let mouse else { return }
-        await run("回报率已设为 \(rate.hertz) Hz") {
+        await run(String(localized: "Polling rate set to \(rate.hertz) Hz")) {
             self.pollingRate = try await self.io(mouse) { m in
                 try m.setPollingRate(rate)
                 return try m.pollingRate()
@@ -155,7 +155,7 @@ final class MouseModel {
 
     func restoreDefaults() async {
         guard let mouse else { return }
-        await run("已恢复出厂按键映射") {
+        await run(String(localized: "Factory button mapping restored")) {
             let map = try await self.io(mouse) { m in
                 try m.restoreDefaultAssignments()
                 return try m.buttonAssignments()
@@ -166,7 +166,7 @@ final class MouseModel {
 
     func switchToNormalMode() async {
         guard let mouse else { return }
-        await run("已切换到 Normal 模式，板载映射生效") {
+        await run(String(localized: "Switched to Normal mode; on-board mapping is active")) {
             let mode = try await self.io(mouse) { m in
                 try m.setDeviceMode(.normal)
                 return try m.deviceMode()
@@ -177,11 +177,11 @@ final class MouseModel {
 
     /// 调试用：`class id size [bytes...]`，数字可写十进制或 0x 前缀十六进制。
     func sendRaw(_ line: String) async -> String {
-        guard let mouse else { return "未连接" }
+        guard let mouse else { return String(localized: "Not Connected") }
         let parts = line.split(whereSeparator: \.isWhitespace).map(String.init)
         let bytes = parts.compactMap(Self.parseByte)
         guard parts.count >= 3, bytes.count == parts.count else {
-            return "格式：class id size [参数字节...]，例如 0x00 0x81 2"
+            return String(localized: "Format: class id size [arg bytes...], e.g. 0x00 0x81 2")
         }
         let command = RazerCommand(bytes[2], bytes[0], bytes[1])
         do {
@@ -189,7 +189,7 @@ final class MouseModel {
             var hex = reply.arguments.map { String(format: "%02X", $0) }
             while hex.last == "00" { hex.removeLast() }
             let status = reply.status?.description ?? "status \(reply.statusByte)"
-            return "\(command)\n→ \(status)  \(hex.isEmpty ? "（全 0）" : hex.joined(separator: " "))"
+            return "\(command)\n→ \(status)  \(hex.isEmpty ? String(localized: "(all zero)") : hex.joined(separator: " "))"
         } catch {
             return error.localizedDescription
         }

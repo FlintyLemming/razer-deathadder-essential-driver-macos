@@ -27,7 +27,7 @@ struct DeathAdderControlApp: App {
         .windowResizability(.contentSize)
         .commands {
             CommandGroup(replacing: .help) {
-                Link("GitHub 项目主页（欢迎点 Star）", destination: Project.repository)
+                Link("GitHub Project Page (Stars Welcome)", destination: Project.repository)
             }
         }
     }

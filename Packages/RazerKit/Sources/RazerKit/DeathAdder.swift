@@ -43,7 +43,7 @@ public struct DeviceInfo: Equatable, Sendable {
     public var serial: String
     public var mode: UInt8
 
-    public var modeName: String { DeviceMode(rawValue: mode)?.name ?? "未知(\(mode))" }
+    public var modeName: String { DeviceMode(rawValue: mode)?.name ?? String(localized: "Unknown (\(Int(mode)))", bundle: .module) }
 }
 
 /// 映射表的层（`GET_BUTTON_ASSIGNMENT_LIST` 第 2 个参数）。
@@ -183,7 +183,10 @@ public final class DeathAdder: @unchecked Sendable {
         try link.execute(.setButtonAssignment, [buttonProfile, button, 0] + action.record)
         let readBack = try buttonAssignment(button)
         guard readBack == action else {
-            throw RazerError.verifyFailed("\(PhysicalButton.name(button))：期望 \(action.displayName)，读回 \(readBack.displayName)")
+            throw RazerError.verifyFailed(String(
+                localized: "\(PhysicalButton.name(button)): expected \(action.displayName), read back \(readBack.displayName)",
+                bundle: .module
+            ))
         }
     }
 

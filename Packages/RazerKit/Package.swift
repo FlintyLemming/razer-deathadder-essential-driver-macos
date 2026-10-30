@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "RazerKit",
+    defaultLocalization: "en",
     platforms: [.macOS(.v14)],
     products: [
         .library(name: "RazerKit", targets: ["RazerKit"]),
@@ -11,6 +12,7 @@ let package = Package(
     targets: [
         .target(
             name: "RazerKit",
+            resources: [.process("Resources")],
             linkerSettings: [.linkedFramework("IOKit"), .linkedFramework("CoreFoundation")]
         ),
         .executableTarget(name: "rzctl", dependencies: ["RazerKit"]),

@@ -14,15 +14,15 @@ struct ContentView: View {
                 case .searching:
                     PlaceholderView(
                         symbol: "cable.connector",
-                        title: "等待鼠标连接",
-                        detail: "插入 Razer DeathAdder Essential（USB 1532:0098）后会自动连接。",
+                        title: String(localized: "Waiting for Mouse"),
+                        detail: String(localized: "Plug in a Razer DeathAdder Essential (USB 1532:0098) and it will connect automatically."),
                         showsProgress: true
                     )
                 case .permissionNeeded:
                     PermissionView()
                 case .failed(let reason):
-                    PlaceholderView(symbol: "exclamationmark.triangle", title: "无法打开设备", detail: reason) {
-                        Button("重试") { Task { await model.connect() } }
+                    PlaceholderView(symbol: "exclamationmark.triangle", title: String(localized: "Can’t Open Device"), detail: reason) {
+                        Button("Retry") { Task { await model.connect() } }
                     }
                 case .connected:
                     SettingsForm()
@@ -64,7 +64,7 @@ private struct HeaderView: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 .buttonStyle(.borderless)
-                .help("重新读取设备状态")
+                .help("Reload Device State")
                 .disabled(model.busy)
             }
         }
@@ -74,14 +74,14 @@ private struct HeaderView: View {
 
     private var subtitle: String {
         switch model.connection {
-        case .searching: "未连接"
-        case .permissionNeeded: "已检测到，等待授权"
-        case .failed: "连接失败"
+        case .searching: String(localized: "Not Connected")
+        case .permissionNeeded: String(localized: "Detected, waiting for permission")
+        case .failed: String(localized: "Connection Failed")
         case .connected:
             if let info = model.info {
-                "固件 \(info.firmware) · \(info.serial) · \(info.modeName) 模式"
+                String(localized: "Firmware \(info.firmware) · \(info.serial) · \(info.modeName) mode")
             } else {
-                "已连接"
+                String(localized: "Connected")
             }
         }
     }
@@ -104,12 +104,12 @@ private struct SettingsForm: View {
                     HStack(alignment: .top, spacing: 10) {
                         Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("设备处于 \(info.modeName) 模式").font(.headline)
-                            Text("这个模式下固件不执行板载按键映射（通常是被 Windows 上的 Synapse 切过去的）。切回 Normal 模式后映射才会生效。")
+                            Text("Device is in \(info.modeName) mode").font(.headline)
+                            Text("In this mode the firmware ignores the on-board button mapping (usually Synapse on Windows switched it). Mappings take effect after switching back to Normal mode.")
                                 .font(.callout).foregroundStyle(.secondary)
                         }
                         Spacer()
-                        Button("切换到 Normal") { Task { await model.switchToNormalMode() } }
+                        Button("Switch to Normal") { Task { await model.switchToNormalMode() } }
                     }
                 }
             }
@@ -126,7 +126,7 @@ private struct SettingsForm: View {
     }
 
     private var dpiSection: some View {
-        Section("灵敏度") {
+        Section("Sensitivity") {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("DPI")
@@ -152,7 +152,7 @@ private struct SettingsForm: View {
                 }
             }
             if let stages = model.stages, !stages.values.isEmpty {
-                LabeledContent("预设档位") {
+                LabeledContent("DPI Stages") {
                     HStack(spacing: 6) {
                         ForEach(Array(stages.values.enumerated()), id: \.offset) { index, value in
                             let selected = stages.active == index + 1 && value == model.dpi
@@ -168,9 +168,9 @@ private struct SettingsForm: View {
     }
 
     private var pollingSection: some View {
-        Section("回报率") {
+        Section("Polling Rate") {
             let rates = PollingRate.common + (model.pollingRate.map { PollingRate.common.contains($0) ? [] : [$0] } ?? [])
-            Picker("回报率", selection: Binding(
+            Picker("Polling Rate", selection: Binding(
                 get: { model.pollingRate ?? PollingRate(code: 1) },
                 set: { rate in Task { await model.applyPollingRate(rate) } }
             )) {
@@ -187,9 +187,9 @@ private struct SettingsForm: View {
             ForEach(model.buttons) { slot in
                 LabeledContent(slot.name) {
                     HStack {
-                        Text(slot.action?.displayName ?? "未读取")
+                        Text(slot.action?.displayName ?? String(localized: "Not Read"))
                             .foregroundStyle(slot.action == .off ? .secondary : .primary)
-                        Button("更改…") { editing = slot.id }
+                        Button("Change…") { editing = slot.id }
                             .popover(isPresented: Binding(
                                 get: { editing == slot.id },
                                 set: { if !$0 { editing = nil } }
@@ -205,17 +205,17 @@ private struct SettingsForm: View {
                 }
             }
         } header: {
-            Text("按键映射")
+            Text("Button Mapping")
         } footer: {
             HStack {
-                Text("映射写入鼠标板载存储，换一台电脑也有效。")
+                Text("Mappings are saved to the mouse’s on-board memory and work on any computer.")
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
-                Button("恢复出厂映射…") { confirmRestore = true }
-                    .confirmationDialog("把所有按键恢复为出厂映射？", isPresented: $confirmRestore) {
-                        Button("恢复", role: .destructive) { Task { await model.restoreDefaults() } }
+                Button("Restore Factory Mapping…") { confirmRestore = true }
+                    .confirmationDialog("Restore all buttons to the factory mapping?", isPresented: $confirmRestore) {
+                        Button("Restore", role: .destructive) { Task { await model.restoreDefaults() } }
                     } message: {
-                        Text("出厂映射中两个侧键是鼠标按钮 4 / 5（后退 / 前进）。")
+                        Text("In the factory mapping, the two side buttons are mouse buttons 4 / 5 (Back / Forward).")
                     }
             }
         }
@@ -223,14 +223,14 @@ private struct SettingsForm: View {
 
     private var advancedSection: some View {
         Section {
-            DisclosureGroup("调试命令") {
+            DisclosureGroup("Debug Commands") {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        TextField("class id size [参数...]，如 0x00 0x81 2", text: $rawCommand)
+                        TextField("class id size [args...], e.g. 0x00 0x81 2", text: $rawCommand)
                             .font(.system(.body, design: .monospaced))
                             .textFieldStyle(.roundedBorder)
                             .onSubmit(sendRaw)
-                        Button("发送", action: sendRaw)
+                        Button("Send", action: sendRaw)
                             .disabled(rawCommand.trimmingCharacters(in: .whitespaces).isEmpty)
                     }
                     if !rawOutput.isEmpty {
@@ -278,19 +278,19 @@ private struct ButtonEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("设置「\(slot.name)」").font(.headline)
+            Text("Configure “\(slot.name)”").font(.headline)
 
-            Picker("类型", selection: $kind) {
-                Text("鼠标按键").tag(Kind.mouse)
-                Text("键盘按键").tag(Kind.key)
-                Text("禁用").tag(Kind.off)
+            Picker("Type", selection: $kind) {
+                Text("Mouse Button").tag(Kind.mouse)
+                Text("Keyboard Key").tag(Kind.key)
+                Text("Disabled").tag(Kind.off)
             }
             .pickerStyle(.segmented)
             .labelsHidden()
 
             switch kind {
             case .mouse:
-                Picker("输出", selection: $mouseCode) {
+                Picker("Output", selection: $mouseCode) {
                     ForEach(MouseButtonCode.selectable, id: \.self) { code in
                         Text(MouseButtonCode.name(code)).tag(code)
                     }
@@ -298,12 +298,12 @@ private struct ButtonEditor: View {
             case .key:
                 keyEditor
             case .off:
-                Text("按下这个按钮不会产生任何输出。")
+                Text("Pressing this button produces no output.")
                     .foregroundStyle(.secondary)
             }
 
             if slot.id == 1 && result != .mouseButton(1) {
-                Label("改掉左键后，需要用触控板或其他鼠标才能点回来。", systemImage: "exclamationmark.triangle.fill")
+                Label("After remapping the left button, you’ll need a trackpad or another mouse to change it back.", systemImage: "exclamationmark.triangle.fill")
                     .font(.callout)
                     .foregroundStyle(.orange)
             }
@@ -311,9 +311,9 @@ private struct ButtonEditor: View {
             HStack {
                 Text(result.displayName).font(.callout).foregroundStyle(.secondary)
                 Spacer()
-                Button("取消") { onFinish(nil) }
+                Button("Cancel") { onFinish(nil) }
                     .keyboardShortcut(.cancelAction)
-                Button("应用") { onFinish(result) }
+                Button("Apply") { onFinish(result) }
                     .keyboardShortcut(.defaultAction)
                     .disabled(recording)
             }
@@ -332,7 +332,7 @@ private struct ButtonEditor: View {
                 modifierToggle("⇧ Shift", .leftShift)
                 modifierToggle("⌘ Command", .leftCommand)
             }
-            Picker("按键", selection: $usage) {
+            Picker("Key", selection: $usage) {
                 ForEach(HIDKeyboard.groups) { group in
                     Section(group.title) {
                         ForEach(group.keys) { key in
@@ -347,7 +347,7 @@ private struct ButtonEditor: View {
             Button {
                 recording ? stopRecording() : startRecording()
             } label: {
-                Label(recording ? "请按下要录制的组合键…" : "录制按键", systemImage: recording ? "record.circle.fill" : "keyboard")
+                Label(recording ? "Press the key combination to record…" : "Record Keys", systemImage: recording ? "record.circle.fill" : "keyboard")
             }
             .tint(recording ? .red : nil)
         }
@@ -442,17 +442,17 @@ private struct PermissionView: View {
     var body: some View {
         PlaceholderView(
             symbol: "lock.shield",
-            title: "需要“输入监控”权限",
-            detail: "macOS 要求先授权，才能读写鼠标的配置报告。请在 系统设置 → 隐私与安全性 → 输入监控 里允许 DeathAdder Control，然后重新打开本程序。"
+            title: String(localized: "Input Monitoring Permission Required"),
+            detail: String(localized: "macOS requires permission before the mouse’s configuration reports can be read or written. Allow DeathAdder Control in System Settings → Privacy & Security → Input Monitoring, then relaunch the app.")
         ) {
             HStack {
-                Button("请求授权") { model.requestPermission() }
-                Button("打开系统设置") {
+                Button("Request Access") { model.requestPermission() }
+                Button("Open System Settings") {
                     if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent") {
                         NSWorkspace.shared.open(url)
                     }
                 }
-                Button("重新打开") { relaunch() }
+                Button("Relaunch") { relaunch() }
                     .buttonStyle(.borderedProminent)
             }
         }
@@ -477,7 +477,7 @@ enum Project {
 private struct ProjectFooter: View {
     var body: some View {
         HStack(spacing: 6) {
-            Text("开源项目，觉得好用欢迎点个 Star ⭐")
+            Text("Open source — if you find it useful, a Star would be appreciated ⭐")
                 .foregroundStyle(.secondary)
             Spacer()
             Link(destination: Project.repository) {

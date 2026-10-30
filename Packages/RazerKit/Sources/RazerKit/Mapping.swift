@@ -17,10 +17,10 @@ public struct KeyModifiers: OptionSet, Hashable, Sendable {
     /// 按 macOS 习惯的顺序 ⌃ ⌥ ⇧ ⌘ 给出名称。
     public var names: [String] {
         let order: [(KeyModifiers, String)] = [
-            (.leftControl, "Control"), (.rightControl, "右 Control"),
-            (.leftOption, "Option"), (.rightOption, "右 Option"),
-            (.leftShift, "Shift"), (.rightShift, "右 Shift"),
-            (.leftCommand, "Command"), (.rightCommand, "右 Command"),
+            (.leftControl, "Control"), (.rightControl, String(localized: "Right Control", bundle: .module)),
+            (.leftOption, "Option"), (.rightOption, String(localized: "Right Option", bundle: .module)),
+            (.leftShift, "Shift"), (.rightShift, String(localized: "Right Shift", bundle: .module)),
+            (.leftCommand, "Command"), (.rightCommand, String(localized: "Right Command", bundle: .module)),
         ]
         return order.filter { contains($0.0) }.map(\.1)
     }
@@ -70,14 +70,14 @@ public enum ButtonAction: Hashable, Sendable {
     public var displayName: String {
         switch self {
         case .off:
-            return "禁用"
+            return String(localized: "Disabled", bundle: .module)
         case .mouseButton(let b):
             return MouseButtonCode.name(b)
         case .key(let mods, let usage):
             return (mods.names + [HIDKeyboard.name(usage)]).joined(separator: " + ")
         case .raw(let mode, let data):
             let hex = data.map { String(format: "%02X", $0) }.joined(separator: " ")
-            return "未知 mode \(mode)  [\(hex)]"
+            return String(localized: "Unknown mode \(Int(mode))  [\(hex)]", bundle: .module)
         }
     }
 }
@@ -89,14 +89,14 @@ public enum MouseButtonCode {
 
     public static func name(_ code: UInt8) -> String {
         switch code {
-        case 1: "鼠标左键"
-        case 2: "鼠标右键"
-        case 3: "鼠标中键"
-        case 4: "鼠标按钮 4（后退）"
-        case 5: "鼠标按钮 5（前进）"
-        case 9: "滚轮上滚"
-        case 10: "滚轮下滚"
-        default: "鼠标按钮 \(code)"
+        case 1: String(localized: "Left Click", bundle: .module)
+        case 2: String(localized: "Right Click", bundle: .module)
+        case 3: String(localized: "Middle Click", bundle: .module)
+        case 4: String(localized: "Mouse Button 4 (Back)", bundle: .module)
+        case 5: String(localized: "Mouse Button 5 (Forward)", bundle: .module)
+        case 9: String(localized: "Scroll Up", bundle: .module)
+        case 10: String(localized: "Scroll Down", bundle: .module)
+        default: String(localized: "Mouse Button \(Int(code))", bundle: .module)
         }
     }
 }
@@ -105,14 +105,14 @@ public enum MouseButtonCode {
 public enum PhysicalButton {
     public static func name(_ id: UInt8) -> String {
         switch id {
-        case 1: "左键"
-        case 2: "右键"
-        case 3: "中键（滚轮按下）"
-        case 4: "侧键 · 靠下"
-        case 5: "侧键 · 靠上"
-        case 9: "滚轮上滚"
-        case 10: "滚轮下滚"
-        default: "按钮 \(id)"
+        case 1: String(localized: "Left Button", bundle: .module)
+        case 2: String(localized: "Right Button", bundle: .module)
+        case 3: String(localized: "Middle Button (Wheel Click)", bundle: .module)
+        case 4: String(localized: "Side Button · Lower", bundle: .module)
+        case 5: String(localized: "Side Button · Upper", bundle: .module)
+        case 9: String(localized: "Scroll Up", bundle: .module)
+        case 10: String(localized: "Scroll Down", bundle: .module)
+        default: String(localized: "Button \(Int(id))", bundle: .module)
         }
     }
 }

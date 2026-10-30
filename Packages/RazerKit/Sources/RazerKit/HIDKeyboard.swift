@@ -16,41 +16,47 @@ public enum HIDKeyboard {
 
     public static let groups: [Group] = {
         func k(_ usage: UInt8, _ name: String) -> Key { Key(usage: usage, name: name) }
+        func pad(_ usage: UInt8, _ label: String) -> Key { k(usage, String(localized: "Keypad \(label)", bundle: .module)) }
         // 显式标注类型：Xcode 26 的类型检查器推断这些表达式会超时
         let letters: [Key] = (0..<26).map { (i: Int) in k(UInt8(0x04 + i), String(UnicodeScalar(UInt8(65 + i)))) }
         let digits: [Key] = (1...9).map { (n: Int) in k(UInt8(0x1D + n), "\(n)") } + [k(0x27, "0")]
         let f1to12: [Key] = (1...12).map { (n: Int) in k(UInt8(0x39 + n), "F\(n)") }
         let f13to24: [Key] = (13...24).map { (n: Int) in k(UInt8(0x5B + n), "F\(n)") } // F13 = 0x68
         let fkeys = f1to12 + f13to24
-        let numpad: [Key] = (1...9).map { (n: Int) in k(UInt8(0x58 + n), "小键盘 \(n)") } + [
-            k(0x62, "小键盘 0"), k(0x63, "小键盘 ."), k(0x54, "小键盘 /"), k(0x55, "小键盘 *"),
-            k(0x56, "小键盘 -"), k(0x57, "小键盘 +"), k(0x58, "小键盘 Enter"), k(0x67, "小键盘 ="),
+        let numpad: [Key] = (1...9).map { (n: Int) in pad(UInt8(0x58 + n), "\(n)") } + [
+            pad(0x62, "0"), pad(0x63, "."), pad(0x54, "/"), pad(0x55, "*"),
+            pad(0x56, "-"), pad(0x57, "+"), pad(0x58, "Enter"), pad(0x67, "="),
             k(0x53, "Num Lock / Clear"),
         ]
         return [
-            Group(title: "字母", keys: letters),
-            Group(title: "数字", keys: digits),
-            Group(title: "编辑与导航", keys: [
-                k(0x28, "Return"), k(0x29, "Esc"), k(0x2A, "Delete（退格）"), k(0x4C, "Forward Delete"),
+            Group(title: String(localized: "Letters", bundle: .module), keys: letters),
+            Group(title: String(localized: "Numbers", bundle: .module), keys: digits),
+            Group(title: String(localized: "Editing & Navigation", bundle: .module), keys: [
+                k(0x28, "Return"), k(0x29, "Esc"), k(0x2A, String(localized: "Delete (Backspace)", bundle: .module)), k(0x4C, "Forward Delete"),
                 k(0x2B, "Tab"), k(0x2C, "Space"), k(0x39, "Caps Lock"),
                 k(0x50, "←"), k(0x4F, "→"), k(0x52, "↑"), k(0x51, "↓"),
                 k(0x4A, "Home"), k(0x4D, "End"), k(0x4B, "Page Up"), k(0x4E, "Page Down"),
                 k(0x49, "Insert"),
             ]),
-            Group(title: "符号", keys: [
+            Group(title: String(localized: "Symbols", bundle: .module), keys: [
                 k(0x2D, "-"), k(0x2E, "="), k(0x2F, "["), k(0x30, "]"), k(0x31, "\\"),
                 k(0x33, ";"), k(0x34, "'"), k(0x35, "`"), k(0x36, ","), k(0x37, "."), k(0x38, "/"),
-                k(0x64, "§（ISO）"),
+                k(0x64, "§ (ISO)"),
             ]),
-            Group(title: "功能键", keys: fkeys),
-            Group(title: "小键盘", keys: numpad),
-            Group(title: "系统", keys: [
-                k(0x7F, "静音"), k(0x80, "音量 +"), k(0x81, "音量 −"),
+            Group(title: String(localized: "Function Keys", bundle: .module), keys: fkeys),
+            Group(title: String(localized: "Keypad", bundle: .module), keys: numpad),
+            Group(title: String(localized: "System", bundle: .module), keys: [
+                k(0x7F, String(localized: "Mute", bundle: .module)),
+                k(0x80, String(localized: "Volume Up", bundle: .module)),
+                k(0x81, String(localized: "Volume Down", bundle: .module)),
                 k(0x46, "Print Screen"), k(0x47, "Scroll Lock"), k(0x48, "Pause"), k(0x65, "Menu"),
             ]),
-            Group(title: "修饰键（单独按下）", keys: [
+            Group(title: String(localized: "Modifiers (Alone)", bundle: .module), keys: [
                 k(0xE0, "Control"), k(0xE1, "Shift"), k(0xE2, "Option"), k(0xE3, "Command"),
-                k(0xE4, "右 Control"), k(0xE5, "右 Shift"), k(0xE6, "右 Option"), k(0xE7, "右 Command"),
+                k(0xE4, String(localized: "Right Control", bundle: .module)),
+                k(0xE5, String(localized: "Right Shift", bundle: .module)),
+                k(0xE6, String(localized: "Right Option", bundle: .module)),
+                k(0xE7, String(localized: "Right Command", bundle: .module)),
             ]),
         ]
     }()
@@ -62,7 +68,7 @@ public enum HIDKeyboard {
     }()
 
     public static func name(_ usage: UInt8) -> String {
-        names[usage] ?? String(format: "键码 0x%02X", usage)
+        names[usage] ?? String(localized: "Key Code \(String(format: "0x%02X", usage))", bundle: .module)
     }
 
     /// macOS 虚拟键码（kVK_*）→ HID 用途码，用于“录制按键”。

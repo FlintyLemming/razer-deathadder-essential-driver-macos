@@ -121,21 +121,25 @@ public enum RazerError: Error, LocalizedError, Equatable {
     public var errorDescription: String? {
         switch self {
         case .deviceNotFound:
-            "未找到 DeathAdder Essential"
+            String(localized: "DeathAdder Essential not found", bundle: .module)
         case .notPermitted:
-            "没有访问该设备的权限（需要“输入监控”授权）"
+            String(localized: "No permission to access the device (Input Monitoring access required)", bundle: .module)
         case .openFailed(let rc):
-            String(format: "打开设备失败（IOReturn 0x%08X）", UInt32(bitPattern: rc))
+            String(localized: "Failed to open device (IOReturn \(Self.hex(rc)))", bundle: .module)
         case .io(let rc):
-            String(format: "HID 收发失败（IOReturn 0x%08X）", UInt32(bitPattern: rc))
+            String(localized: "HID transfer failed (IOReturn \(Self.hex(rc)))", bundle: .module)
         case .noResponse(let cmd):
-            "设备无应答 \(cmd)"
+            String(localized: "No response from device \(cmd.description)", bundle: .module)
         case .status(let s, let cmd):
-            "设备返回 \(RazerStatus(rawValue: s)?.description ?? "status \(s)") \(cmd)"
+            String(localized: "Device returned \(RazerStatus(rawValue: s)?.description ?? "status \(s)") \(cmd.description)", bundle: .module)
         case .invalidReply(let cmd):
-            "应答格式异常 \(cmd)"
+            String(localized: "Malformed reply \(cmd.description)", bundle: .module)
         case .verifyFailed(let detail):
-            "写入后读回不一致：\(detail)"
+            String(localized: "Read-back mismatch after write: \(detail)", bundle: .module)
         }
+    }
+
+    private static func hex(_ rc: Int32) -> String {
+        String(format: "0x%08X", UInt32(bitPattern: rc))
     }
 }
